@@ -5,6 +5,7 @@ export const GET_SYSTEMES = gql`
 query GETSYSTEME {
   systemes {
     data {
+      id
       attributes {
         name
         description
@@ -33,6 +34,7 @@ export const GET_FILTER_ORGANES = gql`
 query GET_FILTER_ORGANES($systeme: String) {
   organes(filters: { systeme: { name: { eq: $systeme } } }) {
     data {
+      id
       attributes {
         name
         description
@@ -68,6 +70,7 @@ export const GET_FILTER_MALADIE = gql`
 query GET_FILTER_MALADIE($organe: String) {
   maladies(filters: { organes: { name: { eq: $organe } } }) {
     data {
+      id
       attributes {
         name
         description
@@ -96,6 +99,7 @@ export const GET_FILTER_TRAITEMENT = gql`
 query GET_FILTER_TRAITEMENT($maladie: String) {
   traitements(filters: { maladies: { name: { eq: $maladie } } }) {
     data {
+      id
       attributes {
         name
         description

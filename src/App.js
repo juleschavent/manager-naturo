@@ -13,6 +13,8 @@ import { makeStyles } from '@mui/styles';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import { Box } from '@mui/material';
 import ResetDropdown from './component/ResetDropdown';
+import SearchToggle from './component/SearchToggle';
+import AddEntry from './component/AddEntry';
 
 const useStyles = makeStyles({
   title: {
@@ -30,29 +32,35 @@ function App() {
   });
 
   const classes = useStyles()
-  const { currSysteme, currOrgane, currMaladie, currDetails } = useContext(StateContext)
+  const { currSysteme, currOrgane, currMaladie, currDetails, currTab } = useContext(StateContext)
 
   return (
     <ApolloProvider client={client}>
       <Container maxWidth="lg">
         <Header />
-        <Grid container>
-          <Grid item xs={12} sm={3}>
-            <Systeme />
-            {currSysteme !== "false" && <Organe />}
-            {currOrgane !== "false" && <Maladie />}
-            {currMaladie !== "false" && <Traitement />}
-            {currSysteme !== "false" && < ResetDropdown />}
-          </Grid>
-          <Grid item xs={12} sm={9}>
-            {currDetails ? <CurrentDetails /> :
-              <Box display="flex" alignItems="center" justifyContent="end">
-                <ArrowCircleLeftIcon color="inherit" />
-                <h2 className={classes.title}>Sélectionnez un système pour commencer votre recherche</h2>
+        <SearchToggle />
+        {currTab === "parcourir" ?
+          <Grid container>
+            <Grid item xs={12} sm={3}>
+              <Systeme />
+              {currSysteme !== "false" && <Organe />}
+              {currOrgane !== "false" && <Maladie />}
+              {currMaladie !== "false" && <Traitement />}
+              <Box mt="10px" display="flex" alignItems="center" justifyContent="space-between">
+                <AddEntry />
+                {currSysteme !== "false" && < ResetDropdown />}
               </Box>
-            }
+            </Grid>
+            <Grid item xs={12} sm={9}>
+              {currDetails !== "false" ? <CurrentDetails /> :
+                <Box display="flex" alignItems="center" justifyContent="end" mt="15px">
+                  <ArrowCircleLeftIcon sx={{ fill: "#219ebc" }} />
+                  <h2 className={classes.title}>Sélectionnez un système pour commencer votre recherche</h2>
+                </Box>
+              }
+            </Grid>
           </Grid>
-        </Grid>
+          : ""}
       </Container>
     </ApolloProvider >
   );

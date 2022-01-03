@@ -27,6 +27,7 @@ const Systeme = () => {
         <Select
           value={currSysteme}
           label="Systeme"
+          // onChange={(e) => handleSystemeChange(e, data)}
           onChange={(e) => handleSystemeChange(e, systemeList)}
         >
           {systemeList.map((systeme, index) => (

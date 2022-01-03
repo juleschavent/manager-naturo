@@ -9,12 +9,14 @@ const StateContextProvider = ({ children }) => {
     const [currMaladie, setCurrMaladie] = useState("false")
     const [currTraitement, setCurrTraitement] = useState("false")
 
-    const [currDetails, setCurrDetails] = useState()
+    const [currDetails, setCurrDetails] = useState("false")
+
+    const [currTab, setCurrTab] = useState("parcourir")
 
     const handleSystemeChange = (event, details) => {
         setCurrSysteme(event.target.value);
         details.forEach(element => {
-            element.attributes.name === event.target.value && setCurrDetails(element.attributes)
+            element.attributes.name === event.target.value && setCurrDetails(element)
         });
         setCurrOrgane("false")
         setCurrMaladie("false")
@@ -24,7 +26,7 @@ const StateContextProvider = ({ children }) => {
     const handleOrganeChange = (event, details) => {
         setCurrOrgane(event.target.value);
         details.forEach(element => {
-            element.attributes.name === event.target.value && setCurrDetails(element.attributes)
+            element.attributes.name === event.target.value && setCurrDetails(element)
         });
         setCurrMaladie("false")
         setCurrTraitement("false")
@@ -33,14 +35,21 @@ const StateContextProvider = ({ children }) => {
     const handleMaladieChange = (event, details) => {
         setCurrMaladie(event.target.value);
         details.forEach(element => {
-            element.attributes.name === event.target.value && setCurrDetails(element.attributes)
+            element.attributes.name === event.target.value && setCurrDetails(element)
         });
         setCurrTraitement("false")
     };
 
+    const handleTraitementChange = (event, details) => {
+        setCurrTraitement(event.target.value);
+        details.forEach(element => {
+            element.attributes.name === event.target.value && setCurrDetails(element)
+        });
+    };
 
     return (
         <StateContext.Provider value={{
+            currTab, setCurrTab,
             currSysteme, setCurrSysteme,
             currOrgane, setCurrOrgane,
             currMaladie, setCurrMaladie,
@@ -49,6 +58,7 @@ const StateContextProvider = ({ children }) => {
             handleSystemeChange,
             handleOrganeChange,
             handleMaladieChange,
+            handleTraitementChange,
         }}>
             {children}
         </StateContext.Provider>

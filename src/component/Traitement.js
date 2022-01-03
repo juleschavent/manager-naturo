@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import { handleChange } from "../assets/hooks";
 
 const Traitement = () => {
-    const { currMaladie, currTraitement, setCurrTraitement, setCurrDetails } = useContext(StateContext)
+    const { currMaladie, currTraitement, handleTraitementChange } = useContext(StateContext)
 
     const { loading, error, data } = useQuery(GET_FILTER_TRAITEMENT, {
         variables: { maladie: currMaladie }
@@ -30,7 +30,8 @@ const Traitement = () => {
                     value={currTraitement}
                     label="Traitement"
                     // onChange={(e) => handleChange(e, setCurrTraitement)}
-                    onChange={(e) => handleChange(e, setCurrTraitement, setCurrDetails, traitementList)}
+                    onChange={(e) => handleTraitementChange(e, traitementList)}
+                // onChange={(e) => handleChange(e, setCurrTraitement, setCurrDetails, traitementList)}
                 >
                     {traitementList.map((traitement, index) => (
                         <MenuItem key={index} value={traitement.attributes.name}>{traitement.attributes.name}</MenuItem>

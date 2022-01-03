@@ -3,10 +3,11 @@ import { useContext } from "react";
 import { StateContext } from "../Context/StateContext";
 import { makeStyles } from '@mui/styles';
 import ReactMarkdown from 'react-markdown'
+import { Edit } from "../assets/icons";
 
 const useStyles = makeStyles({
     title: {
-        marginBottom: 15,
+        marginLeft: 10,
         textAlign: "right",
         fontSize: 32,
         "&:first-letter": {
@@ -25,9 +26,12 @@ const CurrentDetails = () => {
     // console.log("curr details", currDetails);
     return (
         <Box ml="50px" textAlign="justify">
-            <h2 className={classes.title}>{currDetails.name}</h2>
+            <Box display="flex" alignItems="center" justifyContent="end" mb="30px">
+                <Edit id={currDetails.id} collection={currDetails.attributes.__typename.toLowerCase()} />
+                <h2 className={classes.title}>{currDetails.attributes.name}</h2>
+            </Box>
             <ReactMarkdown className={classes.description}>
-                {currDetails.description}
+                {currDetails.attributes.description}
             </ReactMarkdown>
         </Box>
     );
